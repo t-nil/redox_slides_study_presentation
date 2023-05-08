@@ -1,0 +1,9 @@
+let empty = []
+let seq = @subst(  @empty [2 4])
+echo $seq
+
+set -p -e
+
+true | false
+
+echo "should not print this"

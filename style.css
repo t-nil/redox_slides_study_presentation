@@ -1,0 +1,17 @@
+.slidev-layout p {
+    margin: 5px;
+    font-size: 30px;
+}
+
+.slidev-layout li {
+    margin: 5px;
+    font-size: 20px;
+}
+
+.slidev-layout a {
+    font-size: 20px;
+}
+
+.slidev-layout div para {
+    margin: 5px;
+}
