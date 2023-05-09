@@ -5,14 +5,35 @@ layout: intro
 
 # What is Ion Shell
 
-- Running in Terminal
-- Has own its scripting language 
-- Is default shell in Redox Os
-- Runs in Linux too
+- Is the default shell in Redox Os
+- Runs on Linux too
+- Has its own scripting language 
 
 ---
 
-# Some Ion Shell code
+# Ion shell works on types instead of just text
+
+Primitives
+
+- Str
+- Bool
+- Int
+- Float
+
+<br>
+<hr>
+<br>
+
+Collections
+
+<br>
+
+- Arrays
+- Maps
+
+---
+
+# Example of Ion Shell code
 
 ```sh
 echo $filename("/parent/filename.ext")
@@ -42,11 +63,11 @@ square a
 
 ---
 
-# Some parts of my contribution to Ion Shell
+# A few parts of my contribution to Ion Shell
 
-- Fixes in parser 
-- Implement built in subst method
-- Implement pipefail option
+- Fixed in parser 
+- Implemented new built in subst method
+- Implemented "pipefail" option
 
 ```sh{1|2|3-4|6|8|10|all}
 let empty = []
@@ -56,24 +77,47 @@ echo $seq
 
 set -p -e
 
-true | false
+false | true
 
 echo "should not print this"
 ```
 
 ---
 
-# Why schemes in RedoxOs
+# Purpose of schemes in Redox Os
 
+<br>
 
-Used for IPC, Inter Process Communication,  in RedoxOs
+Used for IPC, Inter Process Communication, in Redox Os
+  
+<br>
   
 - Sharing resources
 - Provides Services to programs
+- Allows organization of resources in any data structure
+
+<br>
+
+<div v-click >
+
+<hr>
+<br>
+
+Kernel is the bridge between client and the scheme daemon 
+
+<br>
+
+```mermaid
+graph LR
+Client/Program <--> Kernel
+Kernel <--> Deamon
+```
+
+</div>
 
 ---
 
-# Terms for schemes in RedoxOs
+# Terms for schemes in Redox Os
 
 Terms to clarify
 
@@ -84,7 +128,7 @@ Terms to clarify
 
 ---
 
-# Scheme: What is an URL in RedoxOs
+# What is an URL in context of scheme
 
 <div v-click class="text-xl p-4">
 
@@ -116,7 +160,7 @@ file:/some_path/some_folder
 
 <div v-click class="text-xl p-4">
 
-URL is the path to a resoruce in a scheme
+URL is the path to a resource in a scheme
 
 </div>
 
@@ -178,7 +222,7 @@ Terms to clarify
 
 # What are scheme providers 
 
-Deamons which respond to requests for resources in scheme
+Some daemons which respond to requests for resources in scheme
 
 |  Name    | Daemon  | Discription         |
 |----------|---------|---------------------|
@@ -192,7 +236,7 @@ Deamons which respond to requests for resources in scheme
 layout: center
 ---
 
-# Client and Server (Scheme Provider)
+# Client and Daemon (Scheme Provider)
 
 ## Opening Resource
 
@@ -211,14 +255,14 @@ layout: center
 
 # Reading from a resource
 
-A request and response has the returned ID from opened resource
+A request and response has the returned ID from the opened resource
 
 ```mermaid
 graph LR
    Program -->|1. Send request to| Kernel
    Kernel -->|2. Forwards request to| Scheme_Provider
    Scheme_Provider -->|3. Read| Resource 
-   Scheme_Provider -->|4. Send back response to| Kernel
+   Scheme_Provider -->|4. Sends back response to| Kernel
    Kernel -->|5. Forwards Response back to| Program
 ```
 
@@ -237,10 +281,10 @@ Terms to clarify
 
 # Register a scheme with Root Scheme
 
-- Root scheme is empty String
+- Root scheme is an empty String
 - Reference after "**:**" is the name of the scheme to register
 
-```rust{2|4}
+```rust{2|4-5}
 fn main() {
     let mut scheme = VecScheme::new();
 
@@ -251,7 +295,7 @@ fn main() {
 
 ---
 
-# Implementing a scheme provider
+# Implementing a scheme
 
 ```rust
 struct VecScheme {
@@ -279,7 +323,7 @@ impl SchemeMut for VecScheme {
 
 ```rust{8-10|12-13|15-16|all}
 fn main() {
-  // ... code from previous slide
+  // ... code register slide
   
   // Struct which contains data from request and for later response
   let mut packet = Packet::default();
@@ -300,7 +344,7 @@ fn main() {
 
 ---
 
-# Intialize scheme provider
+# Client using a scheme
 
 ```rust{2-3|5-6|8-10|all}
 fn main() {
