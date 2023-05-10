@@ -65,7 +65,7 @@ square a
 
 # A few parts of my contribution to Ion Shell
 
-- Fixed in parser 
+- Fixed errors in parser 
 - Implemented new built in subst method
 - Implemented "pipefail" option
 
@@ -88,7 +88,7 @@ echo "should not print this"
 
 <br>
 
-Used for IPC, Inter Process Communication, in Redox Os
+Used for IPC, Inter Process Communication
   
 <br>
   
